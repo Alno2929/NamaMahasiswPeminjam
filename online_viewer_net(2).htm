@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto Nama</title>
+</head>
+<body>
+
+    <!-- Preview teks -->
+    <div id="preview"></div>
+
+    <br><br>
+
+    <!-- Input nama -->
+    <input
+    type="text"
+    id="nama"
+    placeholder=" "
+    oninput="updateText()"
+    onfocus="this.value=''; updateText();"
+    style="width: 300px; height: 35px; font-size: 16px;"
+>
+
+    <br><br>
+
+    <!-- Tombol salin -->
+    <button onclick="salin()">Salin</button>
+    
+
+
+    <!-- Notifikasi HTML -->
+    <div id="notif" style="display:none; margin-top:8px; color:green;">
+        Tersalin
+    </div>
+
+    <script>
+        function getTeks(nama) {
+            return `Assalamualaikum
+
+Dengan Mahasiswa Atas Nama *${nama}* ?
+
+Kami Dari *UPA PERPUSTAKAAN UNIVERSITAS NEGERI GORONTALO* ingin mengingatkan bahwa Anda masih memiliki pinjaman buku dan sudah melewati batas deadline pengembalian.
+Segera urus pengembalian buku untuk menghindari bertambahnya nominal Denda.
+
+Atas perhatiannya diucapkan Terimakasih.
+
+Untuk lebih lengkapnya silahkan datang ke *UPA PERPUSTAKAAN UNG*.`;
+        }
+
+        function updateText() {
+            const nama = document.getElementById("nama").value || "....";
+            const teks = getTeks(nama);
+
+            document.getElementById("preview").innerHTML =
+                teks.replace(/\n/g, "<br>");
+        }
+
+        function salin() {
+            const nama = document.getElementById("nama").value || "....";
+            const teks = getTeks(nama);
+
+            navigator.clipboard.writeText(teks);
+
+            const notif = document.getElementById("notif");
+            notif.style.display = "block";
+
+            setTimeout(() => {
+                notif.style.display = "none";
+            }, 2000);
+        }
+
+        updateText();
+    </script>
+
+</body>
+</html>
